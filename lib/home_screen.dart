@@ -13,6 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   var userInput = '';
   var answer = '';
+  var temp = '';
   @override
   Widget build(BuildContext context) {
     debugPrint('rebuild');
@@ -20,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.black,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40.0),
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             children: [
               Expanded(
@@ -29,14 +30,23 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    // mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 10),
+                      Column(
+                        children: [
+                          const Align( alignment: Alignment.topLeft,
+                              child: Text('Expression', style: TextStyle(fontSize: 15, color: kWhite))
+                          ),
+                          Align(alignment: Alignment.topLeft,
+                              child: Text(temp.toString(), style: const TextStyle(fontSize: 18, color: kWhite)))
+                        ],),
+                      const SizedBox(height: 50),
                       Align(
                           alignment: Alignment.bottomRight,
-                          child: Text(userInput.toString(), style: const TextStyle(fontSize: 30, color: kWhite))),
-                      const SizedBox(height: 15),
-                      Text(answer.toString(), style: const TextStyle(fontSize: 28, color: kWhite),)
+                          child: Text(userInput.toString(), style: const TextStyle(fontSize: 20, color: kWhite)),),
+                      const SizedBox(height: 20),
+                      Text(answer.toString(), style: const TextStyle(fontSize: 19, color: kWhite)),
                     ],
                   ),
                 ),
@@ -52,11 +62,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           // debugPrint('tap');
                           userInput = '';
                           answer = '';
+                          temp = '';
                           setState(() {});
                         }, w: FontWeight.normal, size: 25),
                         Button(tile: '±', onPress: () {
-                          int num = int.parse(userInput);
-                          num = -num;
+                          double num = double.parse(userInput);
+                          num = num * (-1);
                           userInput = num.toString();
                           setState(() {});
                         }
@@ -105,8 +116,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           userInput += '6';
                           setState(() {});
                         },),
-                        Button(tile: '−', onPress: () {
-                          userInput += '−';
+                        Button(tile: '-', onPress: () {
+                          userInput += '-';
                           setState(() {});
                         }),
                       ],
@@ -147,6 +158,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         }, w: FontWeight.normal, size: 25),
                         Button(tile: '=', onPress: () {
                           equalPress();
+                          temp = userInput;
+                          userInput = answer;
+                          answer = userInput;
                           setState(() {});
                         }),
                       ],

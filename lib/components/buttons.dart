@@ -22,7 +22,7 @@ class Button extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: InkWell(
           onTap: onPress,
-          child: Container(
+          child: SizedBox(
             height: 80,
             // decoration: const BoxDecoration(
             //   shape: BoxShape.rectangle,
